@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>小鱼天气</title>
+    <script src="js/jquery/2.0.0/jquery.min.js"></script>
+    <link href="css/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet"/>
+    <script type="text/javascript" src="js/bootstrap/3.3.6/bootstrap.min.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        html{
+            height: 100%;
+        }
+        body{
+            margin: 0 auto;
+            width: 100%;
+            height: 100%;
+            background-color: #a7d2ff;
+        }
+        div .item img{
+            width: 100%;
+
+        }
+        div #carousel-example-generic{
+            margin: 0 auto;
+            /*background-color: red;*/
+        }
+        #wheel{
+            width: 600px;
+            /*height: 100px;*/
+            border: 2px black solid;
+            margin: 5px;
+            margin-top: 50px;
+        }
+        #content{
+            margin: 0 auto;
+            width: 1200px;
+            background-color: white;
+        }
+        #header{
+            margin: 0 auto;
+            width: 1200px;
+            background-color: rgba(60,90,134,0.2);
+            font-size: 15px;
+            height: 30px;
+        }
+        #header span{
+            height: 30px;
+            line-height: 30px;
+        }
+        .navbar{
+            margin: 0 auto;
+            width: 1200px;
+
+        }
+        #nav{
+            background-color: #2e6da4;
+            height: 50px;
+            text-align: center;
+            margin-top: 50px;
+        }
+        #nav p{
+            display: inline-block;
+           height: 50px;
+
+        }
+        #nav p a{
+            color: white;
+            font-size: 18px;
+            height: 50px;
+            line-height: 50px;
+            padding-left: 25px;
+            padding-right: 25px;
+        }
+        #nav p:hover{
+            background-color: #228aff;
+
+        }
+        #all{
+            margin: 0 auto;
+            width: 1200px;
+            background-color: white;
+        }
+        #info table{
+            border-collapse: collapse;
+
+        }
+        #info table tr td{
+            border: 1px black solid;
+            width:200px;
+            height: 40px;
+            text-align: center;
+            font-size: 18px;
+        }
+        #content dl dt{
+            display: inline-block;
+
+        }
+        #future{
+            text-align: center;
+        }
+        #future dl dt{
+            width: 150px;
+            text-align: center;
+            background-color: rgba(151,188,201,0.13);
+            padding: 5px;
+            display: inline-block;
+            margin-left: 50px;
+            margin-top: 50px;
+
+        }
+        /*
+        底部固定
+         */
+        #all{
+            margin: 0 auto;
+            min-height: 100%;
+            padding-top: 0;
+            position: relative;
+            padding-bottom: 50px;
+            overflow: hidden;
+        }
+        #foot{
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 50px;
+            text-align: center;
+            background-color: #2e6da4;
+            color: white;
+        }
+        #foot p{
+            height: 50px;
+            line-height: 50px;
+        }
+
+
+    </style>
+</head>
+<body  >
+
+    <div id="all">
+
+        <!-- 头部-->
+        <header id="header">
+                <span style="margin-left: 10px">欢迎来到小鱼天气！</span>
+                <span id="time" style="margin-left: 100px">--</span>
+                <span id="city" style="float: right;margin-right: 10px">--</span>
+                <span style="float: right">当前城市：</span>
+
+        </header>
+
+        <!-- 身体 -->
+        <div id="content">
+
+            <!-- nav-->
+            <div id="nav">
+                <p><a href="#">首页</a> </p>
+                <p><a href="#">天气</a> </p>
+                <p><a href="#">环境</a> </p>
+                <p><a href="#">建议</a> </p>
+                <section style="display: inline-block;margin-left: 200px">
+                    <input type="text" >
+                    <input type="button" value="搜索" style="margin-left: 20px" >
+
+                </section>
+            </div>
+
+
+            <dl>
+                <dt >
+
+                    <!-- 轮播 -->
+
+                    <div id="wheel">
+                        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <li data-target="#carousel-example-generic" data-slide-to="0"  class="active"></li>
+                                <li data-target="#carousel-example-generic" data-slide-to="1" ></li>
+                                <li data-target="#carousel-example-generic" data-slide-to="2"  ></li>
+                            </ol>
+
+                            <div class="carousel-inner" role="listbox">
+                                <div class="item active">
+                                    <img src="images/a.jpg">
+                                </div>
+                                <div class="item">
+                                    <img src="images/b.jpg">
+                                </div>
+                                <div class="item">
+                                    <img src="images/c.jpg">
+                                </div>
+                            </div>
+
+                            <!-- 控制 -->
+                            <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                            </a>
+
+                            <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+                </dt>
+                <dt style="margin-left: 100px">
+                    <!--当前城市-->
+                    <div id="info">
+                        <table>
+                            <tr>
+                                <td colspan="2" id="parent">--</td>
+                            </tr>
+                            <tr>
+                                <td>温度</td>
+                                <td id="wendu">--</td>
+                            </tr>
+                            <tr>
+                                <td>湿度</td>
+                                <td id="shidu">--</td>
+                            </tr>
+                            <tr>
+                                <td>pm25</td>
+                                <td id="pm25">--</td>
+                            </tr>
+                            <tr>
+                                <td>pm10</td>
+                                <td id="pm10">--</td>
+                            </tr>
+                            <tr>
+                                <td>空气质量</td>
+                                <td id="quality">--</td>
+                            </tr>
+                            <tr>
+                                <td>感冒建议</td>
+                                <td id="ganmao">--</td>
+                            </tr>
+                        </table>
+                    </div>
+                </dt>
+            </dl>
+
+        </div>
+        <div id="future">
+
+            <dl>
+                <dt>
+                    <p id="date">今天</p>
+                    <p><img src="images/sunshine.png" width="50" height="50" id="img"></p>
+                    <p id="type">晴</p>
+                    <p id="low">2</p>
+                    <p id="high">3</p>
+                    <p ><span id="fl">4-5级</span></p>
+                    <p><span id="fx">西北风</span></p>
+
+                </dt>
+                <dt>
+                    <p id="date1">今天</p>
+                    <p><img src="images/sunshine.png" width="50" height="50" id="img1"></p>
+                    <p id="type1">晴</p>
+                    <p id="low1">2</p>
+                    <p id="high1">3</p>
+                    <p ><span id="fl1">4-5级</span></p>
+                    <p><span id="fx1">西北风</span></p>
+
+                </dt>
+                <dt>
+                    <p id="date2">今天</p>
+                    <p><img src="images/sunshine.png" width="50" height="50" id="img2"></p>
+                    <p id="type2">晴</p>
+                    <p id="low2">2</p>
+                    <p id="high2">3</p>
+                    <p ><span id="fl2">4-5级</span></p>
+                    <p><span id="fx2">西北风</span></p>
+
+                </dt>
+                <dt>
+                    <p id="date3">今天</p>
+                    <p><img src="images/sunshine.png" width="50" height="50" id="img3"></p>
+                    <p id="type3">晴</p>
+                    <p id="low3">2</p>
+                    <p id="high3">3</p>
+                    <p ><span id="fl3">4-5级</span></p>
+                    <p><span id="fx3">西北风</span></p>
+
+                </dt>
+                <dt>
+                    <p id="date4">今天</p>
+                    <p><img src="images/sunshine.png" width="50" height="50" id="img4"></p>
+                    <p id="type4">晴</p>
+                    <p id="low4">2</p>
+                    <p id="high4">3</p>
+                    <p ><span id="fl4">4-5级</span></p>
+                    <p><span id="fx4">西北风</span></p>
+
+                </dt>
+
+            </dl>
+
+
+        </div>
+
+
+
+         <!--底部 -->
+        <!--<nav class="navbar navbar-default navbar-fixed-bottom">-->
+            <!--<div style="text-align: center" >-->
+                <!--<p style="margin-top:15px">版权所有</p>-->
+            <!--</div>-->
+
+        <!--</nav>-->
+        <footer id="foot">
+            <p>版权所有</p>
+        </footer>
+
+    </div>
+
+
+<script>
+
+    $(function () {
+        // var url="https://www.sojson.com/open/api/weather/json.shtml";
+        var page="http://t.weather.sojson.com/api/weather/city/101270101";
+        $.get(
+            page,
+            function (result) {
+                $("#time").html(result.time.split(" ")[0]);
+                $("#city").html(result.cityInfo.city);
+                $("#parent").html(result.cityInfo.city);
+                $("#wendu").html(result.data.wendu);
+                $("#shidu").html(result.data.shidu);
+                $("#pm25").html(result.data.pm25);
+                $("#pm10").html(result.data.pm10);
+                $("#quality").html(result.data.quality);
+                $("#ganmao").html(result.data.ganmao);
+                //0
+                $("#date").html(result.data.forecast[0].date);
+                $("#type").html(result.data.forecast[0].type);
+                $("#low").html(result.data.forecast[0].low);
+                $("#high").html(result.data.forecast[0].high);
+                $("#fl").html(result.data.forecast[0].fl);
+                $("#fx").html(result.data.forecast[0].fx);
+                if(result.data.forecast[0].type =="多云"){
+                    $("#img").attr("src","images/more.png");
+                }
+                //1
+                $("#date1").html(result.data.forecast[1].date);
+                $("#type1").html(result.data.forecast[1].type);
+                $("#low1").html(result.data.forecast[1].low);
+                $("#high1").html(result.data.forecast[1].high);
+                $("#fl1").html(result.data.forecast[1].fl);
+                $("#fx1").html(result.data.forecast[1].fx);
+                if(result.data.forecast[1].type=="多云"){
+                    $("#img1").attr("src","images/more.png");
+                }
+                //2
+                $("#date2").html(result.data.forecast[2].date);
+                $("#type2").html(result.data.forecast[2].type);
+                $("#low2").html(result.data.forecast[2].low);
+                $("#high2").html(result.data.forecast[2].high);
+                $("#fl2").html(result.data.forecast[2].fl);
+                $("#fx2").html(result.data.forecast[2].fx);
+                if(result.data.forecast[2].type=="多云"){
+                    $("#img2").attr("src","images/more.png");
+                }
+                //3
+                $("#date3").html(result.data.forecast[3].date);
+                $("#type3").html(result.data.forecast[3].type);
+                $("#low3").html(result.data.forecast[3].low);
+                $("#high3").html(result.data.forecast[3].high);
+                $("#fl3").html(result.data.forecast[3].fl);
+                $("#fx3").html(result.data.forecast[3].fx);
+                if(result.data.forecast[3].type=="多云"){
+                    $("#img3").attr("src","images/more.png");
+                }
+                //4
+                $("#date4").html(result.data.forecast[4].date);
+                $("#type4").html(result.data.forecast[4].type);
+                $("#low4").html(result.data.forecast[4].low);
+                $("#high4").html(result.data.forecast[4].high);
+                $("#fl4").html(result.data.forecast[4].fl);
+                $("#fx4").html(result.data.forecast[4].fx);
+                if(result.data.forecast[4].type=="多云"){
+                    $("#img4").attr("src","images/more.png");
+                }
+
+            }
+        );
+        }
+    );
+
+
+</script>
+
+
+</body>
+</html>
